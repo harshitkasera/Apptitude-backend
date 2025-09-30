@@ -39,9 +39,13 @@ app.get("/api/question", async (req, res) => {
 });
 
 // ✅ Get Single Question (by ID)
-app.get("/api/question/:id", async (req, res) => {
-  const question = await Question.findById(req.params.id);
-  res.json(question);
+app.get('/api/question/:id', async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id);
+    res.json(question);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
 // ✅ Submit Answer Check
