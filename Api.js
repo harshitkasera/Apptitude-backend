@@ -8,7 +8,7 @@ const Questions = [
   "difficulty": "easy"
 },
  {
-  "question": "What is 12 - 6?",
+  "question": "What is 12 - 6?", 
   "options":["6", "7", "18", "22"],
   "start": "harshit",
   "correctAnswer": 0,
@@ -31,6 +31,14 @@ const Questions = [
   "subject": "Aptitude",
   "difficulty": "easy"
 },{
+  "question": "What is 12 / 6?",
+  "options":["8", "6", "2", "2.5"],
+  "start": "harshit",
+  "correctAnswer": 1,
+  "subject": "Aptitude",
+  "difficulty": "easy"
+},
+{
   "question": "What is 12 / 6?",
   "options":["8", "6", "2", "2.5"],
   "start": "harshit",
