@@ -58,3 +58,12 @@ app.post("/api/submit/:id", async (req, res) => {
   const isCorrect = question.correctAnswer === answer;
   res.json({ correct: isCorrect });
 });
+// DELETE route for removing a question
+app.delete("/api/question/:id", async (req, res) => {
+  try {
+    await Question.findByIdAndDelete(req.params.id);
+    res.json({ message: "Question deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Error deleting question" });
+  }
+});
