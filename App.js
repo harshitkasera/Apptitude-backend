@@ -6,19 +6,19 @@ const use = (cors())
 app.use(express.json())
 const data = require('./Default')
 data()
-const Question=   require("./model/QuesModel")
+const Question = require("./model/QuesModel")
 require('./Database/Connection')
-app.use(cors()); 
+app.use(cors());
 
-app.get('/',(req,res)=>{
-    res.send("server in running")
+app.get('/', (req, res) => {
+  res.send("server in running")
 })
 app.use('/api/user', require('./Route/UserRouter'))
 
 const port = 1100
-app.listen(port,()=>{
-    console.log("Server start",port);
-})
+app.listen(port, () => {
+  console.log("Server start", port);
+}) 
 
 
 // ✅ Add Question
