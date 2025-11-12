@@ -7,10 +7,8 @@ require("dotenv").config();
 const Router = express.Router()
 
 Router.post('/saveUser', Userconfig.saveUser)
-// Router.post("/send-result", sendResultMail)
 Router.post('/loginuser', Userconfig.loginUSer)
 
-// Route/UserRouter.js
 
 
 Router.post("/send-result", async (req, res) => {
@@ -40,6 +38,7 @@ Router.post("/send-result", async (req, res) => {
       <p>Keep practicing and improving!</p>
       <br><p>– Aptitude Team</p>
     `;
+     console.log("📩 Sending email to:", email);
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -47,6 +46,8 @@ Router.post("/send-result", async (req, res) => {
       subject: "Your Aptitude Test Result",
       html: resultMessage,
     });
+console.log("📧 Trying to send email to:", email);
+console.log("✅ Using user:", process.env.EMAIL_USER);
 
     res.json({ message: "Result email sent successfully!" });
   } catch (err) {
