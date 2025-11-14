@@ -34,9 +34,9 @@ Router.post("/send-result", async (req, res) => {
       },
     });
 
-    // verify SMTP connection before sending
-    await transporter.verify();
-    console.log("✅ SMTP connection verified successfully");
+    // // verify SMTP connection before sending
+    // await transporter.verify();
+    // console.log("✅ SMTP connection verified successfully");
 
     const resultMessage = `
       <h2>Hi ${name || "Student"},</h2>
@@ -50,22 +50,35 @@ Router.post("/send-result", async (req, res) => {
       <br><p>– Aptitude Team</p>
     `;
 
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "Your Aptitude Test Result",
-      html: resultMessage,
-    });
+//     const info = await transporter.sendMail({
+//       from: process.env.EMAIL_USER,
+//       to: email,
+//       subject: "Your Aptitude Test Result",
+//       html: resultMessage,
+//     });
 
-    console.log("✅ Mail sent! Message ID:", info.messageId);
-    res.json({ message: "Result email sent successfully!" });
-  } catch (err) {
-    console.error("❌ Error sending email:", err.message);
-    console.error(err);
-    res.status(500).json({ error: err.message });
+//     console.log("✅ Mail sent! Message ID:", info.messageId);
+//     res.json({ message: "Result email sent successfully!" });
+//   } catch (err) {
+//     console.error("❌ Error sending email:", err.message);
+//     console.error(err);
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+  const mailOptions = {
+      from: 'Aptitude tracker harshitkasera01@gmail.com',
+      to,
+      subject,
+      html,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log("📧 Email sent successfully");
+  } catch (error) {
+    console.error("❌ Email not sent:", error.message);
+    throw new Error("Email sending failed");
   }
 });
-
 
 
 module.exports = Router
