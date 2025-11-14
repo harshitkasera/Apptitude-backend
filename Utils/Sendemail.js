@@ -9,7 +9,7 @@ const sendEmail = async (to, subject, html) => {
         pass: 'sdwc ayar vkix gytt',          // 👈 Gmail ka App Password (normal password nahi chalega)
       },
     });
-
+ 
     const mailOptions = {
       from: 'Aptitude tracker harshitkasera01@gmail.com',
       to,
