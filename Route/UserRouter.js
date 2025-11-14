@@ -66,10 +66,10 @@ Router.post("/send-result", async (req, res) => {
 //   }
 // });
   const mailOptions = {
-      from: 'Aptitude tracker harshitkasera01@gmail.com',
-      to,
-      subject,
-      html,
+     from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Your Aptitude Test Result",
+      html: resultMessage,
     };
 
     await transporter.sendMail(mailOptions);
