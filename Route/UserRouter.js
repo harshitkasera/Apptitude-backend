@@ -62,7 +62,7 @@ Router.post("/send-result", async (req, res) => {
   } catch (err) {
     console.error("❌ Error sending email:", err.message);
     console.error(err);
-    res.status(500).json({ error: "Failed to send email" });
+    res.status(500).json({ error: err.message });
   }
 });
 

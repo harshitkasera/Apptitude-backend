@@ -3,11 +3,6 @@ const cors = require('cors')
 
 // require("dotenv").config();
 
-
-const sendEmail = require('./Utils/Sendemail')
-
-
-
 const app = express();
 app.use(express.json())
 app.use(cors())
@@ -24,10 +19,6 @@ data()
 const Question = require("./model/QuesModel")
 
 app.use('/api/user', require('./Route/UserRouter'))
-
-app.listen(process.env.PORT || 1100, () => {
-  console.log(`Server start ${process.env.PORT || 1100}`);
-});
 
 
 // ✅ Add Question
@@ -55,4 +46,9 @@ app.get('/api/question/:id', async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
+});
+
+
+app.listen(process.env.PORT || 1100, () => {
+  console.log(`Server start ${process.env.PORT || 1100}`);
 });
