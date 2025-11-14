@@ -1,10 +1,10 @@
 const express = require('express')
 const cors = require('cors')
 
-require("dotenv").config();
+// require("dotenv").config();
 
 
-
+const sendEmail = require('./Utils/Sendemail')
 
 
 
@@ -25,10 +25,9 @@ const Question = require("./model/QuesModel")
 
 app.use('/api/user', require('./Route/UserRouter'))
 
-const port = 1100
-app.listen(port, () => {
-  console.log("Server start", port);
-}) 
+app.listen(process.env.PORT || 1100, () => {
+  console.log(`Server start ${process.env.PORT || 1100}`);
+});
 
 
 // ✅ Add Question
