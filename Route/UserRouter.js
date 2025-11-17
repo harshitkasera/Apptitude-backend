@@ -27,16 +27,13 @@ Router.post("/send-result", async (req, res) => {
     console.log("✅ Using Email User:", process.env.EMAIL_USER);
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    // verify SMTP connection before sending
-    await transporter.verify();
-    console.log("✅ SMTP connection verified successfully");
+    host: "smtp-relay.brevo.com",
+  port: 587,
+  auth: {
+    user: process.env.BREVO_EMAIL,  
+    pass: process.env.BREVO_API,    
+  }
+});
 
     const resultMessage = `
       <h2>Hi ${name || "Student"},</h2>
@@ -49,23 +46,20 @@ Router.post("/send-result", async (req, res) => {
       <p>Keep practicing and improving!</p>
       <br><p>– Aptitude Team</p>
     `;
-
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+  const mailOptions = {
+     from: 'Aptitude tracker harshitkasera01@gmail.com',
       to: email,
       subject: "Your Aptitude Test Result",
       html: resultMessage,
-    });
+    };
 
-    console.log("✅ Mail sent! Message ID:", info.messageId);
-    res.json({ message: "Result email sent successfully!" });
-  } catch (err) {
-    console.error("❌ Error sending email:", err.message);
-    console.error(err);
-    res.status(500).json({ error: err.message });
+    await transporter.sendMail(mailOptions);
+    console.log("📧 Email sent successfully");
+  } catch (error) {
+    console.error("❌ Email not sent:", error.message);
+    throw new Error("Email sending failed");
   }
 });
-
 
 
 module.exports = Router
