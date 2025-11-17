@@ -26,12 +26,12 @@ Router.post("/send-result", async (req, res) => {
     console.log("📩 Received request to send email to:", email);
     console.log("✅ Using Email User:", process.env.EMAIL_USER);
 
-    const transporter = nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
+   const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
   port: 587,
   auth: {
-    user: process.env.BREVO_EMAIL,  
-    pass: process.env.BREVO_API,    
+    user: process.env.BREVO_SMTP_USER,  
+    pass: process.env.BREVO_SMTP_PASS,    
   }
 });
 
@@ -47,7 +47,7 @@ Router.post("/send-result", async (req, res) => {
       <br><p>– Aptitude Team</p>
     `;
   const mailOptions = {
-     from: 'Aptitude tracker harshitkasera01@gmail.com',
+    from: "Aptitude Tracker <harshitkasera01@gmail.com>",
       to: email,
       subject: "Your Aptitude Test Result",
       html: resultMessage,
