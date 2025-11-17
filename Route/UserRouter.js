@@ -26,8 +26,11 @@ console.log("SMTP PASS:", process.env.BREVO_SMTP_PASS ? "Loaded" : "NOT LOADED")
       return res.status(400).json({ error: "Email is required" });
     }
 
-    console.log("📩 Received request to send email to:", email);
-    console.log("✅ Using Email User:", process.env.EMAIL_USER);
+
+ 
+    console.log("📩 Incoming Email Payload:", req.body);
+console.log("📧 Using SMTP User:", process.env.BREVO_SMTP_USER);
+console.log("🔑 Using SMTP PASS:", process.env.BREVO_SMTP_PASS ? "Loaded" : "MISSING");
 
    const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
@@ -57,11 +60,22 @@ console.log("SMTP PASS:", process.env.BREVO_SMTP_PASS ? "Loaded" : "NOT LOADED")
     };
 
     await transporter.sendMail(mailOptions);
-    console.log("📧 Email sent successfully");
-  } catch (error) {
-    console.error("❌ Email not sent:", error.message);
-    throw new Error("Email sending failed");
-  }
+console.log("📧 Email sent successfully");
+
+return res.json({
+  success: true,
+  message: "Email sent successfully"
+});
+
+ } catch (error) {
+  console.error("❌ Email not sent:", error);
+  return res.status(500).json({
+    success: false,
+    message: "Email sending failed",
+    error: error.message,
+  });
+}
+
 });
 
 
