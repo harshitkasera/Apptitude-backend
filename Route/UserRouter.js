@@ -15,6 +15,9 @@ Router.post("/send-result", async (req, res) => {
 
   try {
     const { email, name, score, total, percentage, isPass } = req.body;
+    console.log("SMTP USER:", process.env.BREVO_SMTP_USER);
+console.log("SMTP PASS:", process.env.BREVO_SMTP_PASS ? "Loaded" : "NOT LOADED");
+
     console.log("✅ Mail route loaded successfully");
 
 
